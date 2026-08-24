@@ -1,19 +1,7 @@
-use actix_web::{get, web, App, HttpServer, Responder};
+use std::net::TcpListener;
+use zero2prod::run;
 
-#[get("/")]
-async fn index() -> impl Responder {
-    "Hello, World!"
-}
-
-#[get("/{name}")]
-async fn hello(name: web::Path<String>) -> impl Responder {
-    format!("Hello {}!", &name)
-}
-
-#[actix_web::main]
+#[tokio::main]
 async fn main() -> std::io::Result<()> {
-    HttpServer::new(|| App::new().service(index).service(hello))
-        .bind(("127.0.0.1", 8080))?
-        .run()
-        .await
+    run(TcpListener::bind("127.0.0.1:8000").unwrap())?.await
 }
