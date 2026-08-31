@@ -17,8 +17,9 @@ serde = { version = "1.0.229", features = ["derive"] }
 
 [dependencies.sqlx]
 default-features = false
+version = "0.9.0"
 features = [
-    "runtime-actix-rustls",
+    "runtime-tokio",
     "macros",
     "postgres",
     "uuid",
