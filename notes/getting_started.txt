@@ -21,4 +21,11 @@ CI
 - cargo fmt -- --check (for auto formatting) (rustup component add rustfmt)
 - cargo audit (for security vulnerability checks) (cargo install cargo-audit)
 
+Macro expansion
 - cargo install cargo-expand (for expanding macros)
+
+Database
+cargo install sqlx-cli --no-default-features --features postgres
+
+Migration
+sqlx migrate run
