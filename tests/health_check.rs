@@ -1,11 +1,12 @@
 use std::net::TcpListener;
+use zero2prod::startup;
 
 fn spawn_app() -> String {
     let listener = TcpListener::bind("127.0.0.1:0")
         .expect("Failed to bind random port");
     let port = listener.local_addr().unwrap().port();
     println!(stringify!(port));
-    let server = zero2prod::run(listener).expect("Failed to bind address");
+    let server = startup::run(listener).expect("Failed to bind address");
     let _ = tokio::spawn(server);
     format!("http://127.0.0.1:{}", port)
 }
@@ -63,8 +64,7 @@ async fn subscriber_returns_a_400_when_data_is_missing() {
         // act
         let response = client
             .post(&format!("{}/subscribe", app_addr))
-            .header("Content-Type", "application/x-www-form-urlencoded")
-            .body(invalid_body)
+            .header("Content-Type", "application/x-www-form-urlencoded")            .body(invalid_body)
             .send()
             .await
             .expect("Failed to execute request");
